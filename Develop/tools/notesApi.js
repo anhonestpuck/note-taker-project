@@ -8,7 +8,7 @@ const inputNotes = notes && notes.length ? notes:[];
 route.get('/api/notes', (req, res) => {
     res.json(inputNotes);
   })
-route.get('/api/notes', (req, res) => {
+route.post('/api/notes', (req, res) => {
     console.info(`${req.method} request completed`)
     const { title, text } = req.body;
 
@@ -20,12 +20,22 @@ route.get('/api/notes', (req, res) => {
         };
         inputNotes.push(inputWithId)
         const inputStr = JSON.stringify(inputNotes, null, 2);
-        fs.writeFile('./db/notes.json', inputStr, (err)=>
-        err
-          ? console.error(err)
-          : console.log(
-              `Note for ${inputWithId.title} has been recorded`
-            ))
+        fs.writeFile('./db/notes.json', inputNotes, (err) => {
+            if (err){
+                console.error(err);
+            }
+            else {
+                console.log(`caputred ${inputWithId.title}`);
+            }
+        } );
+        const response = {
+            status: 'OK',
+            body: inputWithId
+        };
+        console.log(response);
+        res.status(200).json(response);
+    } else {
+        res.status(500).json('broken server')
     }
-}
-)
+
+});
