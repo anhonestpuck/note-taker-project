@@ -1,6 +1,6 @@
 const route = require('express').Router();
 const fs = require('fs');
-const notes = require('../db/notes.json');
+const notes = require('../db/db.json');
 const uuid =require('../tools/uuid');
 
 const inputNotes = notes && notes.length ? notes:[];
@@ -39,3 +39,5 @@ route.post('/api/notes', (req, res) => {
     }
 
 });
+
+module.exports = route
