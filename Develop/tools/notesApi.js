@@ -1,14 +1,14 @@
 const route = require('express').Router();
 const fs = require('fs');
-const notes = require('../db/db.json');
+const db = require('../db/db.json');
 const uuid =require('../tools/uuid');
 
-const inputNotes = notes && notes.length ? notes:[];
+const inputNotes = db && db.length ? db:[];
 
-route.get('/api/notes', (req, res) => {
+route.get('./api/notes', (req, res) => {
     res.json(inputNotes);
   })
-route.post('/api/notes', (req, res) => {
+route.post('./api/notes', (req, res) => {
     console.info(`${req.method} request completed`)
     const { title, text } = req.body;
 
@@ -20,7 +20,7 @@ route.post('/api/notes', (req, res) => {
         };
         inputNotes.push(inputWithId)
         const inputStr = JSON.stringify(inputNotes, null, 2);
-        fs.writeFile('./db/notes.json', inputNotes, (err) => {
+        fs.writeFile('./db/db.json', inputNotes, (err) => {
             if (err){
                 console.error(err);
             }
