@@ -4,7 +4,7 @@ const db = require('../db/db.json');
 const uuid =require('../tools/uuid');
 
 const inputNotes = db && db.length ? db:[];
-
+//forgot that you're starting at the api point here so I wrestled with this one for a while
 route.get(`/notes`, (req, res) => {
     res.json(inputNotes);
   })
