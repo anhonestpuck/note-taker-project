@@ -5,10 +5,10 @@ const uuid =require('../tools/uuid');
 
 const inputNotes = db && db.length ? db:[];
 
-route.get(`${getNotes()}`, (req, res) => {
+route.get(`./api/notes`, (req, res) => {
     res.json(inputNotes);
   })
-route.post(`${saveNote()}`, (req, res) => {
+route.post(`./api/notes`, (req, res) => {
     console.info(`${req.method} request completed`)
     const { title, text } = req.body;
 
@@ -18,16 +18,18 @@ route.post(`${saveNote()}`, (req, res) => {
             text,
             id: uuid()
         };
-        inputNotes.push(inputWithId)
+
+        inputNotes.push(inputWithId);
+
         const inputStr = JSON.stringify(inputNotes, null, 2);
-        fs.writeFile('./db/db.json', inputNotes, (err) => {
-            if (err){
-                console.error(err);
-            }
-            else {
-                console.log(`caputred ${inputWithId.title}`);
-            }
-        } );
+
+        fs.writeFile('./db/db.json', inputNotes, (err) => 
+            err
+            ? console.error(err)
+            : console.log(
+                `note for ${inputWithId} completed`
+            )
+        );
         const response = {
             status: 'OK',
             body: inputWithId
