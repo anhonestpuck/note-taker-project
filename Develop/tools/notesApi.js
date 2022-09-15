@@ -5,10 +5,10 @@ const uuid =require('../tools/uuid');
 
 const inputNotes = db && db.length ? db:[];
 
-route.get('./api/notes', (req, res) => {
+route.get(`${getNotes()}`, (req, res) => {
     res.json(inputNotes);
   })
-route.post('./api/notes', (req, res) => {
+route.post(`${saveNote()}`, (req, res) => {
     console.info(`${req.method} request completed`)
     const { title, text } = req.body;
 
