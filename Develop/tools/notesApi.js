@@ -5,11 +5,11 @@ const uuid =require('../tools/uuid');
 
 const inputNotes = db && db.length ? db:[];
 
-route.get(`./api/notes`, (req, res) => {
+route.get(`/notes`, (req, res) => {
     res.json(inputNotes);
   })
   //this part seems to be trouble because i keep re writing the path and it returns not found every single time.. I've reached out to askBCS again for how to fix it.
-route.post(`./api/notes`, (req, res) => {
+route.post(`/notes`, (req, res) => {
     console.info(`${req.method} request completed`)
     const { title, text } = req.body;
 
@@ -24,7 +24,7 @@ route.post(`./api/notes`, (req, res) => {
 
         const inputStr = JSON.stringify(inputNotes, null, 2);
 
-        fs.writeFile('./db/db.json', inputNotes, (err) => 
+        fs.writeFile('./db/db.json', inputStr, (err) => 
             err
             ? console.error(err)
             : console.log(
