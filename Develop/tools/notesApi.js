@@ -5,11 +5,11 @@ const uuid =require('../tools/uuid');
 
 const inputNotes = db && db.length ? db:[];
 //forgot that you're starting at the api point here so I wrestled with this one for a while
-route.get(`/notes`, (req, res) => {
+route.get(`/api`, (req, res) => {
     res.json(inputNotes);
   })
   //this part seems to be trouble because i keep re writing the path and it returns not found every single time.. I've reached out to askBCS again for how to fix it.
-route.post(`/notes`, (req, res) => {
+route.post(`/api`, (req, res) => {
     console.info(`${req.method} request completed`)
     const { title, text } = req.body;
 
